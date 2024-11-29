@@ -1,0 +1,1 @@
+kubectl exec --stdin --tty $(kubectl get pods | awk 'NR==2 {print $1}') -- /bin/bash
