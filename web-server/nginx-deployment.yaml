@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      initContainers:
+      - name: copy-html
+        image: busybox
+        command:
+        - /bin/sh
+        - -c
+        - |
+          cp /config/index.html /usr/share/nginx/html/
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+      - name: modify-html
+        image: busybox
+        command:
+        - /bin/sh
+        - -c
+        - |
+          POD_NAME=$(hostname)
+          HOST_SUFFIX=$(echo $POD_NAME | tail -c 6)
+          sed -i "s/serving-host/Host-$HOST_SUFFIX/g" /usr/share/nginx/html/index.html
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+      containers:
+      - name: nginx
+        image: nginx:latest
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: html-volume
+        emptyDir: {}
+      - name: config-volume
+        configMap:
+          name: html-config
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
