@@ -1,0 +1,6 @@
+auth:
+  existingSecret: mariadb-passwords
+  rootPasswordKey: 
+  database: my-database
+  username: my-user
+  password: my-password
