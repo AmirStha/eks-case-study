@@ -173,6 +173,13 @@ Resources:
               - elasticloadbalancing:RemoveListenerCertificates
               - elasticloadbalancing:ModifyRule
             Resource: '*'
+          - Effect: Allow
+            Action:
+              - elasticloadbalancing:DescribeListenerAttributes
+              - elasticloadbalancing:DescribeListeners
+              - elasticloadbalancing:DescribeTargetGroups
+              - elasticloadbalancing:DescribeTargetHealth
+            Resource: '*'
 Outputs:
   IamPolicyArn:
     Value: !Ref iamPolicy
