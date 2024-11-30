@@ -3,7 +3,7 @@ wait
 
 kubectl apply -f infrastructure/database/mysql-storage.yaml
 
-sleep 60 &
+sleep 180 &
 pid=$!
 wait $pid
 
