@@ -12,7 +12,7 @@ vpc:
     gateway: HighlyAvailable
 nodeGroups:
   - name: eks-node-group
-    instanceType: t3.micro
+    instanceType: t3.medium
     desiredCapacity: 3
     privateNetworking: true
     volumeSize: 20
