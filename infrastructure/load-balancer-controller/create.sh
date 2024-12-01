@@ -1,3 +1,7 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 helm repo add eks https://aws.github.io/eks-charts
 
 helm upgrade --install \
