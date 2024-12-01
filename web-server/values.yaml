@@ -1,0 +1,33 @@
+replicas: 1
+nodePort: 30080
+nginxImage: nginx:1.14.2
+htmlContent: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>Web Server</title>
+  </head>
+  <body>
+      <h1>Welcome to the Web Server</h1>
+      <p>Serving Host: serving-host</p>
+  </body>
+  </html>
+nginxConfig: |
+  server {
+      listen 80;
+      server_name localhost;
+      location / {
+          root /usr/share/nginx/html;
+          index index.html;
+      }
+  }
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+ingress:
+  groupName: ng-group
+  scheme: internet-facing
