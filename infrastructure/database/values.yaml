@@ -1,0 +1,19 @@
+mysqlRootPassword: amir123
+
+storage:
+  size: 5Gi
+  hostPath: /mnt/data
+  storageClassName: manual
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1"
+mysqlImage: mysql:latest
+
+service:
+  type: ClusterIP
+  port: 3306

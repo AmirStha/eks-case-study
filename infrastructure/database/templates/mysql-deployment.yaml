@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
@@ -14,7 +15,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:latest
+      - image: {{ .Values.mysqlImage }}
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -23,29 +24,19 @@ spec:
               name: mysql-secret
               key: password
         ports:
-        - containerPort: 3306
+        - containerPort: {{ .Values.service.port }}
           name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
         resources:
           requests:
-            memory: "512Mi" 
-            cpu: "500m"
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
           limits:
-            memory: "1Gi"
-            cpu: "1"
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-spec:
-  ports:
-  - port: 3306
-  selector:
-    app: mysql

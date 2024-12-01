@@ -5,22 +5,23 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.storage.storageClassName }}
   capacity:
-    storage: 5Gi
+    storage: {{ .Values.storage.size }}
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data"
+    path: {{ .Values.storage.hostPath | quote }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: {{ .Release.Namespace }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.storage.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: {{ .Values.storage.size }}
