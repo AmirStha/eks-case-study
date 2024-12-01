@@ -5,4 +5,13 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   index.html: |
-    {{ .Values.htmlContent | quote }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Web Server</title>
+    </head>
+    <body>
+        <h1>Welcome to the Web Server</h1>
+        <p>Serving Host: serving-host</p>
+    </body>
+    </html>

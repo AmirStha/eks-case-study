@@ -5,4 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   nginx.conf: |
-    {{ .Values.nginxConfig | quote }}
+    server {
+        listen 80;
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+    }
