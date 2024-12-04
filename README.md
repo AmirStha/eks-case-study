@@ -8,8 +8,6 @@ This project demonstrates the deployment of a Kubernetes-based solution that inc
 4. A Golang-based monitoring application that tracks pod lifecycle events.
 
 The MySQL database cluster and the web server components are deployed and managed using Helm charts. The Golang application is deployed locally.
-Note: The solution was implemented in an EKS (Elastic Kubernetes Service) cluster provisioned using A Cloud Guru's Sandbox environment 
-> **Important:** The sandbox accounts are timeboxed and for the presentation, all components need to be reprovisioned.
 
 ## Components and Implementation
 
